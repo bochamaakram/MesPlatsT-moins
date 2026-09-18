@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta id="meta-description" name="description" content="Mes Plats Témoins — guides, réglementation et solutions pour la gestion des plats témoins en restauration." />
+    <title id="meta-title">Mes Plats Témoins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&display=swap">
+    <link rel="stylesheet" crossorigin href="/assets/index-BJ7-cGBn.css">
+    <style>
+        /* ===== Unified Admin Vibe — Mirrors AdminLayout + Dashboard + Settings =====
+           Applied as runtime overlay over compiled SPA (all 6 public pages).
+           Tokens sourced from tailwind.config.js + AdminLayout.jsx:
+           - bg-section-soft-gray #F1F5F9 / card border slate-200/60 / brand #1667A8 #1E7A3C
+           - Plus Jakarta Sans (Cairo for ar) / rounded-2xl / shadow-sm
+           Covers: / , /vos-besoins , /comment-proceder , /reglementation , /solutions , /contact */
+
+        /* 1. Global canvas & typography — match AdminLayout min-h-screen bg-section-soft-gray */
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F1F5F9 !important;
+            font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            color: #111827;
+            -webkit-font-smoothing: antialiased;
+        }
+        html[lang='ar'] body,
+        html[lang='ar'] [class*="font-['"] {
+            font-family: 'Cairo', 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+        }
+        [class*="font-['"] {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+        }
+
+        /* 2. Normalize off-palette text → admin slate scale */
+        [class*="text-[#111" ] { color: #111827 !important; }
+        [class*="text-[#1a1a1a]"] { color: #111827 !important; }
+        [class*="text-[#2a2b2e]"] { color: #111827 !important; }
+        [class*="text-[#666]"] { color: #64748b !important; }
+        [class*="text-[#4b5563]"] { color: #64748b !important; }
+        [class*="text-[#237d27]"], [class*="text-[#248838]"], [class*="text-[#0d9488]"] { color: #1E7A3C !important; }
+        [class*="text-[#b00b10]"] { color: #dc2626 !important; }
+        [class*="border-[#ccc]"] { border-color: #e2e8f0 !important; }
+        [class*="border-[#e5e7eb]"] { border-color: rgba(226,232,240,0.6) !important; }
+
+        /* 3. Header — replicate AdminLayout header: sticky glass */
+        [data-name="header"], [data-name="Header"], header[class*="bg-white"][class*="border-[#e5e7eb]"] {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 30 !important;
+            background: rgba(255,255,255,0.72) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-bottom: 1px solid rgba(226,232,240,0.6) !important;
+            box-shadow: 0 1px 2px rgba(15,23,42,0.05) !important;
+        }
+        /* Nav links → admin style xs semibold uppercase */
+        [data-name="navigation"] p, [data-name="nav-item-0"] p, [data-name="nav-item-1"] p,
+        [data-name="nav-item-2"] p, [data-name="nav-item-3"] p, [data-name="nav-item-4"] p,
+        [data-name^="Nav-Link-"] p {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: #475569 !important;
+        }
+
+        /* 4. Badges — pill, brand tint */
+        [data-name="hero-badge"], [data-name="badge" i], [data-name="Eyebrow"] {
+            border-radius: 999px !important;
+            background: rgba(22,103,168,0.10) !important;
+            border: 1px solid rgba(22,103,168,0.12) !important;
+            padding: 4px 10px !important;
+        }
+        [data-name="hero-badge"] p, [data-name="badge" i] p, [data-name="Eyebrow"] p,
+        [class*="bg-[#f3f4f6]"][class*="rounded-[4px]"] p {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: #1667A8 !important;
+        }
+        [class*="bg-[#f3f4f6]"][class*="rounded-[4px]"] {
+            border-radius: 999px !important;
+            background: rgba(22,103,168,0.10) !important;
+            border: 1px solid rgba(22,103,168,0.12) !important;
+        }
+
+        /* 5. Hero & section titles — admin H2 style */
+        [data-name$="Header" i] [class*="text-[48px]"],
+        [data-name$="Header" i] [class*="text-[40px]"],
+        [data-name$="Header" i] [class*="text-[36px]"],
+        [data-name$="Header" i] [class*="text-[32px]"],
+        [data-name$="Header" i] [class*="text-[28px]"],
+        [data-name="hero"] [class*="text-[48px]"],
+        [data-name="section-header"] [class*="text-[36px]"] {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+            font-size: clamp(28px, 4vw, 36px) !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.15 !important;
+            text-transform: uppercase !important;
+            color: #111827 !important;
+        }
+
+        /* 6. Buttons — admin primary slate-900 / green brand */
+        [class*="bg-[#1667a8]"], [class*="bg-[#237d27]"], [class*="bg-[#248838]"],
+        [data-name="btn-primary"], [data-name="cta-primary-btn"] {
+            border-radius: 8px !important;
+            box-shadow: 0 1px 2px rgba(15,23,42,0.08) !important;
+        }
+        [class*="bg-[#1667a8]"] { background-color: #0f172a !important; transition: all 0.22s cubic-bezier(0.16,1,0.3,1) !important; }
+        [class*="bg-[#1667a8]"]:hover { transform: translateY(-1px) !important; box-shadow: 0 8px 20px -8px rgba(15,23,42,0.28) !important; }
+        [class*="bg-[#1667a8]"]:hover { background-color: #1e293b !important; }
+        [class*="bg-[#237d27]"], [class*="bg-[#248838]"] { background-color: #1E7A3C !important; }
+        [class*="bg-[#1667a8]"] > *, [class*="bg-[#237d27]"] > *, [class*="bg-[#248838]"] > * {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: #fff !important;
+        }
+        a[class*="border-[#1667a8]"], [data-name="btn-outline"], [data-name="cta-secondary-btn"] {
+            border: 1px solid #e2e8f0 !important;
+            background: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 2px rgba(15,23,42,0.05) !important;
+        }
+        a[class*="border-[#1667a8]"] p, [data-name="btn-outline"] p {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: #334155 !important;
+        }
+
+        /* 7. Cards — Admin card-surface */
+        [data-name="card-0"],[data-name="card-1"],[data-name="card-2"],[data-name="card-3"],
+        [data-name="step-0"],[data-name="step-1"],[data-name="step-2"],[data-name="step-3"],
+        [data-name="Step-0"],[data-name="Step-1"],[data-name="Step-2"],[data-name="Step-3"],
+        [data-name^="target-"],[data-name^="rapid-card-"],[data-name="product-card"],[data-name="product-card-centered"],
+        [data-name^="temp-card-"],[data-name^="Overview-Card-"]:not([data-name="Overview-Cards"]),
+        [data-name^="Benefit-Card-"],[data-name^="WhyCard-"],[data-name^="Method-Step-"],[data-name^="Audit-Card-"],
+        [data-name="details-right-col"], [data-name="form-left-col"], [data-name="form-details-inner"] {
+            background: #fff !important;
+            border: 1px solid rgba(226,232,240,0.7) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 1px 2px rgba(15,23,42,0.05) !important;
+            overflow: hidden !important;
+        }
+        [data-name="card-0"] > [class*="absolute"][class*="border"],[data-name="card-1"] > [class*="absolute"][class*="border"],[data-name="card-2"] > [class*="absolute"][class*="border"],[data-name="card-3"] > [class*="absolute"][class*="border"],
+        [data-name="step-0"] > [class*="absolute"][class*="border"],[data-name="step-1"] > [class*="absolute"][class*="border"],[data-name="step-2"] > [class*="absolute"][class*="border"],[data-name="step-3"] > [class*="absolute"][class*="border"],
+        [data-name="Step-0"] > [class*="absolute"][class*="border"],[data-name="Step-1"] > [class*="absolute"][class*="border"],[data-name="Step-2"] > [class*="absolute"][class*="border"],[data-name="Step-3"] > [class*="absolute"][class*="border"],
+        [data-name^="target-"] > [class*="absolute"][class*="border"],[data-name^="rapid-card-"] > [class*="absolute"][class*="border"],[data-name="product-card"] > [class*="absolute"][class*="border"],[data-name^="temp-card-"] > [class*="absolute"][class*="border"],
+        [data-name^="Overview-Card-"]:not([data-name="Overview-Cards"]) > [class*="absolute"][class*="border"],
+        [data-name^="Benefit-Card-"] > [class*="absolute"][class*="border"],[data-name^="WhyCard-"] > [class*="absolute"][class*="border"],[data-name^="Method-Step-"] > [class*="absolute"][class*="border"],[data-name^="Audit-Card-"] > [class*="absolute"][class*="border"],
+        [data-name="details-right-col"] > [class*="absolute"][class*="border"] { border: 0 !important; display: none !important; }
+        [data-name="card-0"]:hover,[data-name="card-1"]:hover,[data-name="card-2"]:hover,[data-name="card-3"]:hover,
+        [data-name^="target-"]:hover,[data-name^="Benefit-Card-"]:hover,[data-name^="WhyCard-"]:hover,[data-name="Method-Step-"]:hover,[data-name="Audit-Card-"]:hover,[data-name^="Overview-Card-"]:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 28px -10px rgba(15,23,42,0.14), 0 4px 12px -4px rgba(15,23,42,0.08) !important; }
+
+        /* Premium: cards have smooth entry and inner highlight */
+        [data-name="card-0"],[data-name="card-1"],[data-name="card-2"],[data-name="card-3"],
+        [data-name^="Benefit-Card-"],[data-name^="WhyCard-"] {
+            transition: all 0.32s cubic-bezier(0.16,1,0.3,1) !important;
+        }
+        /* Hero — subtle mesh like Admin Dashboard hero */
+        [data-name="hero"] {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            position: relative !important;
+        }
+        [data-name="hero"]::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            background: radial-gradient(600px 300px at 80% -10%, rgba(22,103,168,0.06), transparent 60%), radial-gradient(500px 300px at -10% 100%, rgba(30,122,60,0.05), transparent 60%) !important;
+            pointer-events: none !important;
+        }
+
+        /* 8. Icon chips */
+        [data-name^="icon-placeholder"], [data-name="Icon-Wrapper"] {
+            background: rgba(22,103,168,0.10) !important;
+            border-color: rgba(22,103,168,0.12) !important;
+            border-radius: 12px !important;
+        }
+        [data-name^="icon-placeholder"] svg path { stroke: #1667A8 !important; }
+
+        /* 9. Section backgrounds */
+        [data-name="probleme"], [data-name="Section-Benefits"] { background: #EBF7EE !important; }
+        [data-name*="CHR"], [data-name="Section-Detail-1"], [data-name="Section-Detail-3"], [data-name="section-temperature"], [data-name="form-details-outer"] { background: #EEF6FC !important; }
+        [data-name^="wireframe"]>[data-name]:not([data-name="hero"]):not([data-name="section-hero"]):not([data-name="Section-Hero"]):not([data-name="hero-section"]):not([data-name="hero-outer"]):not([data-name="site-footer"]):not([data-name="Divider-Container"]):not([data-name="newsletter-fond-toile-verre"]):not([data-name*="separateur"]),
+        [data-name="01_ACCUEIL"]>[data-name]:not([data-name="hero"]):not([data-name="section-hero"]):not([data-name="Section-Hero"]):not([data-name="hero-section"]):not([data-name="hero-outer"]):not([data-name="site-footer"]):not([data-name="Divider-Container"]):not([data-name="newsletter-fond-toile-verre"]):not([data-name*="separateur"]),
+        [data-name="contact-page-wireframe"]>[data-name]:not([data-name="hero"]):not([data-name="section-hero"]):not([data-name="Section-Hero"]):not([data-name="hero-section"]):not([data-name="hero-outer"]):not([data-name="site-footer"]):not([data-name="Divider-Container"]):not([data-name="newsletter-fond-toile-verre"]):not([data-name*="separateur"]) {
+            padding-top: 80px !important; padding-bottom: 80px !important;
+        }
+
+        /* 10. Rows */
+        [data-name="cards-row"],[data-name="steps-row"],[data-name="grid"],[data-name="grid-row"],
+        [data-name="temp-grid"],[data-name="Overview-Cards"],[data-name="Timeline-Row"],
+        [data-name="Method-Timeline"],[data-name="Audit-Columns-Wrapper"],
+        [data-name="Detail-1-Row"],[data-name="Detail-2-Row"],[data-name="Detail-3-Row"] {
+            align-items: stretch !important; gap: 16px !important; flex-wrap: wrap !important;
+        }
+
+        /* 11. Hero images — admin rounded-2xl */
+        [data-name="hero-right"] [class*="rounded-[35px]"], [data-name="Hero-Image"] [class*="rounded"] { border-radius: 16px !important; }
+        img[class*="h-[214.68%]"], img[class*="h-[217.55%]"], img[class*="h-[120.06%]"], img[class*="h-[118.52%]"] {
+            width: 100% !important; height: 100% !important; left: 0 !important; top: 0 !important; object-fit: cover !important;
+        }
+
+        /* 12. Separators */
+        [data-name*="separateur"] [class*="bg-[#1667a8]"] { width: 64px !important; height: 4px !important; background: #1667A8 !important; border-radius: 999px !important; margin: 0 auto !important; }
+        [data-name*="separateur"] { display: flex !important; justify-content: center !important; }
+
+        /* 13. Contact forms — admin inputs */
+        [data-name="contact-page-wireframe"] input, [data-name="contact-page-wireframe"] textarea, [data-name="contact-page-wireframe"] select {
+            border-radius: 8px !important; border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 10px 14px !important; font-size: 14px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; box-shadow: 0 1px 2px rgba(15,23,42,0.04) !important;
+        }
+        [data-name="contact-page-wireframe"] input:focus, [data-name="contact-page-wireframe"] textarea:focus { border-color: #1667A8 !important; box-shadow: 0 0 0 3px rgba(22,103,168,0.12) !important; outline: none !important; }
+        [data-name="documentation"] > [data-name="Frame"]:not(:first-child) { display: none !important; }
+
+        /* Premium: section reveal — subtle fade */
+        [data-name^="wireframe"] > [data-name], [data-name="01_ACCUEIL"] > [data-name] {
+            animation: mpt-fade-in 0.5s cubic-bezier(0.16,1,0.3,1) both !important;
+        }
+        @keyframes mpt-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        /* Form premium focus ring like Admin input-admin */
+        [data-name="contact-page-wireframe"] input, [data-name="contact-page-wireframe"] textarea, [data-name="contact-page-wireframe"] select {
+            transition: all 0.2s ease !important;
+        }
+        [data-name="site-footer"] { background: #1B2838 !important; }
+
+        /* 14. Interactive Newsletter Form */
+        .mpt-newsletter-form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: stretch;
+            position: relative;
+            z-index: 2;
+        }
+        .mpt-newsletter-row {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+            width: 100%;
+        }
+        @media (max-width: 600px) {
+            .mpt-newsletter-row {
+                flex-direction: column;
+            }
+        }
+        .mpt-newsletter-input {
+            flex: 1 1 0%;
+            min-width: 0;
+            height: 44px;
+            padding: 0 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background-color: #ffffff;
+            font-family: inherit;
+            font-size: 15px;
+            color: #111827;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .mpt-newsletter-input::placeholder {
+            color: #9ca3af;
+        }
+        .mpt-newsletter-input:focus {
+            border-color: #1667a8;
+            box-shadow: 0 0 0 2px rgba(22, 103, 168, 0.15);
+        }
+        html[dir="rtl"] .mpt-newsletter-input {
+            text-align: right;
+        }
+        .mpt-newsletter-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 28px;
+            background-color: #237d27;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+        }
+        .mpt-newsletter-btn:hover {
+            background-color: #1b631f;
+        }
+        .mpt-newsletter-btn:active {
+            transform: scale(0.98);
+        }
+        .mpt-newsletter-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .mpt-newsletter-consent {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            width: 100%;
+            cursor: pointer;
+            user-select: none;
+        }
+        .mpt-newsletter-checkbox {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid #d1d5db;
+            accent-color: #237d27;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .mpt-newsletter-consent-text {
+            flex: 1 1 0%;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #1667a8;
+        }
+        html[dir="rtl"] .mpt-newsletter-consent-text {
+            text-align: right;
+        }
+        .mpt-newsletter-feedback {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 12px 16px;
+            border-radius: 6px;
+            display: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .mpt-newsletter-feedback.is-success {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(35, 125, 39, 0.10);
+            border: 1px solid #237d27;
+            color: #1e7a3c;
+        }
+        .mpt-newsletter-feedback.is-error {
+            display: block;
+            background-color: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #dc2626;
+        }
+        .mpt-newsletter-reset-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            font-size: 12px;
+            color: #1667a8;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    
+        /* ===== RTL — Arabic (html[dir="rtl"]) Premium ===== */
+        html[dir="rtl"] body {
+            direction: rtl !important;
+            text-align: right;
+            line-height: 1.75 !important;
+        }
+        html[dir="rtl"] [class*="font-['"] {
+            font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif !important;
+            line-height: 1.7 !important;
+        }
+        /* Disable uppercase + tight tracking for Arabic script */
+        html[dir="rtl"] [data-name$="Header" i] [class*="text-["],
+        html[dir="rtl"] [data-name="hero"] [class*="text-[48px]"],
+        html[dir="rtl"] [data-name="badge" i] p,
+        html[dir="rtl"] [data-name="hero-badge"] p,
+        html[dir="rtl"] [data-name="Eyebrow"] p,
+        html[dir="rtl"] [class*="bg-[#1667a8]"] > *,
+        html[dir="rtl"] a[class*="border-[#1667a8]"] p {
+            text-transform: none !important;
+            letter-spacing: 0 !important;
+            font-family: 'Cairo', sans-serif !important;
+        }
+        html[dir="rtl"] [data-name="navigation"] p,
+        html[dir="rtl"] [data-name^="Nav-Link-"] p {
+            letter-spacing: 0 !important;
+            text-transform: none !important;
+            font-family: 'Cairo', sans-serif !important;
+            font-weight: 700 !important;
+        }
+        /* Header in RTL — keep glass but ensure logo stays at inline-start */
+        html[dir="rtl"] [data-name="header"] > div,
+        html[dir="rtl"] [data-name="Header"] > div {
+            direction: rtl;
+        }
+        /* Hero — mirror: text on right, image on left */
+        html[dir="rtl"] [data-name="hero"] .inline-grid,
+        html[dir="rtl"] [data-name="hero"] > div.inline-grid {
+            direction: rtl;
+        }
+        html[dir="rtl"] [data-name="hero-right"] {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            margin-inline-start: 0 !important;
+        }
+        /* Force hero to row-reverse on desktop so text right / image left */
+        @media (min-width: 1024px) {
+            html[dir="rtl"] [data-name="hero"] {
+                justify-content: center !important;
+            }
+            html[dir="rtl"] [data-name="hero"] > div {
+                display: flex !important;
+                flex-direction: row !important;
+                direction: rtl !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 48px !important;
+                width: 100% !important;
+                max-width: 1200px !important;
+            }
+            html[dir="rtl"] [data-name="hero-left"] {
+                width: 56% !important;
+                max-width: 620px !important;
+                min-width: 0 !important;
+                margin: 0 !important;
+                flex: 1 1 0 !important;
+                align-items: flex-end !important;
+                text-align: right !important;
+            }
+            html[dir="rtl"] [data-name="hero-left"] [data-name="Frame"] {
+                align-items: flex-end !important;
+                text-align: right !important;
+            }
+            html[dir="rtl"] [data-name="hero-left"] [data-name="Frame"] p {
+                text-align: right !important;
+            }
+            html[dir="rtl"] [data-name="hero-actions"] {
+                justify-content: flex-end !important;
+            }
+            html[dir="rtl"] [data-name="hero-right"] {
+                width: 44% !important;
+                max-width: 520px !important;
+                min-width: 0 !important;
+                margin: 0 !important;
+                flex: 0 0 44% !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            html[dir="rtl"] [data-name="hero-right"] > div,
+            html[dir="rtl"] [data-name="hero-right"] img {
+                border-radius: 16px !important;
+            }
+        }
+        @media (max-width: 1023px) {
+            html[dir="rtl"] [data-name="hero-left"] {
+                align-items: center !important;
+                text-align: center !important;
+            }
+        }
+        /* Mobile hero — stack naturally, remove left offsets */
+        html[dir="rtl"] img[class*="left-["] {
+            left: auto !important;
+            right: 0 !important;
+        }
+        html[dir="rtl"] img[class*="h-[214.68%]"],
+        html[dir="rtl"] img[class*="h-[217.55%]"],
+        html[dir="rtl"] img[class*="h-[120.06%]"],
+        html[dir="rtl"] img[class*="h-[118.52%]"] {
+            left: auto !important;
+            right: 0 !important;
+        }
+        /* Section headers — right align in RTL */
+        html[dir="rtl"] [data-name="section-header"],
+        html[dir="rtl"] [data-name*="Header"] {
+            text-align: right !important;
+        }
+        html[dir="rtl"] [data-name="probleme"] [data-name="section-header"],
+        html[dir="rtl"] [data-name="Section-Benefits"] [data-name="Benefits-Header"] {
+            text-align: center !important; /* keep centered sections centered even in RTL */
+        }
+        /* Cards — ensure text inside is right-aligned for Arabic */
+        html[dir="rtl"] [data-name="card-0"] p,
+        html[dir="rtl"] [data-name="card-1"] p,
+        html[dir="rtl"] [data-name^="Benefit-Card-"] p,
+        html[dir="rtl"] [data-name^="WhyCard-"] p,
+        html[dir="rtl"] [data-name="details-right-col"] p {
+            text-align: right !important;
+        }
+        /* Contact form — labels & inputs RTL */
+        html[dir="rtl"] [data-name="contact-page-wireframe"] label,
+        html[dir="rtl"] [data-name="contact-page-wireframe"] input,
+        html[dir="rtl"] [data-name="contact-page-wireframe"] textarea,
+        html[dir="rtl"] [data-name="contact-page-wireframe"] select {
+            text-align: right !important;
+            direction: rtl !important;
+        }
+        html[dir="rtl"] [data-name="form-left-col"] {
+            text-align: right !important;
+        }
+        /* Footer columns — reverse visual order slightly for RTL balance */
+        html[dir="rtl"] [data-name="footer-top"],
+        html[dir="rtl"] [data-name="footer-top-grid"] {
+            direction: rtl;
+        }
+        html[dir="rtl"] [data-name="site-footer"] {
+            text-align: right;
+        }
+        /* Newsletter — already has rtl via .mpt-newsletter-input[dir=rtl] but enforce */
+        html[dir="rtl"] .mpt-newsletter-consent {
+            flex-direction: row-reverse !important;
+        }
+        /* Fix gradient direction for RTL */
+        html[dir="rtl"] [data-name="hero"]::before {
+            background: radial-gradient(600px 300px at 20% -10%, rgba(22,103,168,0.06), transparent 60%), radial-gradient(500px 300px at 110% 100%, rgba(30,122,60,0.05), transparent 60%) !important;
+        }
+
+        /* 15. Regulations Category Cards Word-Wrap & Responsive Layout */
+        [data-name="thematiques"] {
+            overflow-x: hidden !important;
+            box-sizing: border-box !important;
+        }
+        [data-name="thematiques"] [data-name="Frame"] {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        [data-name="thematiques"] [data-name="Frame"] > div[class*="flex"] {
+            flex-wrap: wrap !important;
+        }
+        [data-name="thematiques"] [class*="flex-[1_0_66px]"],
+        [data-name="thematiques"] [data-name="Frame"] > div[class*="bg-white"] {
+            min-width: 170px !important;
+            flex: 1 1 170px !important;
+            box-sizing: border-box !important;
+        }
+        [data-name="thematiques"] p,
+        [data-name="thematiques"] [class*="text-[16px]"],
+        [data-name="thematiques"] [class*="text-[20px]"] {
+            word-break: normal !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
+        }
+
+        /* 16. Contact Page Sidebar Action Buttons Overflow */
+        [data-name="details-right-col"] {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        [data-name="details-right-col"] a,
+        [data-name="call-button"],
+        [data-name="whatsapp-button"],
+        [data-name="details-right-col"] [data-name="call-button"],
+        [data-name="details-right-col"] [data-name="whatsapp-button"] {
+            max-width: 100% !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 17. RTL Directional Indicators Flip & Cairo Polish */
+        html[dir="rtl"] [data-name*="arrow-right"] svg,
+        html[dir="rtl"] [data-name*="Arrow-Right"] svg,
+        html[dir="rtl"] svg[id*="arrow-right"],
+        html[dir="rtl"] [data-name*="chevron-right"] svg,
+        html[dir="rtl"] [data-name*="Chevron-Right"] svg {
+            transform: scaleX(-1) !important;
+        }
+        html[dir="rtl"] [data-name="badge" i],
+        html[dir="rtl"] [data-name="hero-badge"],
+        html[dir="rtl"] [data-name="Eyebrow"] {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            line-height: normal !important;
+        }
+        html[dir="rtl"] [data-name="badge" i] p,
+        html[dir="rtl"] [data-name="hero-badge"] p,
+        html[dir="rtl"] [data-name="Eyebrow"] p {
+            font-family: 'Cairo', sans-serif !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+        }
+        html[dir="rtl"] [class*="bg-[#1667a8]"],
+        html[dir="rtl"] [class*="bg-[#237d27]"],
+        html[dir="rtl"] [class*="bg-[#248838]"],
+        html[dir="rtl"] [data-name="btn-primary"],
+        html[dir="rtl"] [data-name="btn-outline"] {
+            font-family: 'Cairo', sans-serif !important;
+        }
+
+    </style>
+    <script type="module" crossorigin src="/assets/index-BPXVBj8Q.js" defer></script>
+  </head>
+  <body>
+    <script>
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      const possibleLang = pathParts[0];
+      let currentLang = ['fr', 'en', 'ar'].includes(possibleLang) ? possibleLang : (localStorage.getItem('app_locale') || 'fr');
+      
+      if (['fr', 'en', 'ar'].includes(possibleLang)) {
+          localStorage.setItem('app_locale', currentLang);
+      }
+      
+      const languages = {
+        fr: { dir: 'ltr' },
+        en: { dir: 'ltr' },
+        ar: { dir: 'rtl' }
+      };
+      
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = languages[currentLang].dir;
+      window.__MPT_LOCALE__ = currentLang;
+
+      // CMS Content map injected by backend (nested by locale)
+      const CMS_CONTENT_ALL = window.CMS_CONTENT || {};
+      const CMS_CONTENT = CMS_CONTENT_ALL[currentLang] || {};
+      
+      const ROUTE_MAP = window.ROUTE_MAP || {};
+
+      function getOriginalPath(translatedPath) {
+          if (!ROUTE_MAP[currentLang]) return translatedPath;
+          let searchPath = translatedPath;
+          try { searchPath = decodeURI(searchPath); } catch(e) {}
+          if (searchPath.startsWith('/' + currentLang)) {
+              searchPath = searchPath.substring(currentLang.length + 1) || '/';
+          }
+          try { searchPath = decodeURI(searchPath); } catch(e) {}
+          return ROUTE_MAP[currentLang][searchPath] || ROUTE_MAP[currentLang][encodeURI(searchPath)] || searchPath;
+      }
+
+      function getTranslatedPath(originalPath) {
+          if (!currentLang || currentLang === 'fr') return originalPath;
+          try { originalPath = decodeURI(originalPath); } catch(e) {}
+          if (ROUTE_MAP[currentLang]) {
+              for (const [translated, original] of Object.entries(ROUTE_MAP[currentLang])) {
+                  if (original === originalPath) {
+                      return '/' + currentLang + translated;
+                  }
+              }
+          }
+          if (originalPath === '/' || originalPath === '') {
+              return '/' + currentLang + '/home';
+          }
+          if (!originalPath.startsWith('/' + currentLang)) {
+              return '/' + currentLang + (originalPath.startsWith('/') ? originalPath : '/' + originalPath);
+          }
+          return originalPath;
+      }
+
+      window.getOriginalPath = getOriginalPath;
+      window.getTranslatedPath = getTranslatedPath;
+
+      // History API Interceptor for Localized URLs
+      (function() {
+          // 1. Initial Load: Revert the URL to the original slug before React boots
+          const currentPath = window.location.pathname;
+          let decodedPath = currentPath; try{ decodedPath = decodeURI(currentPath);}catch(e){}
+          const originalPath = getOriginalPath(currentPath);
+          
+          function restoreUrlAfterReactMount() {
+              const root = document.getElementById('root');
+              if (!root) return;
+              
+              const observer = new MutationObserver((mutations, obs) => {
+                  if (root.children.length > 0) {
+                      window.history.replaceState(null, '', currentPath);
+                      obs.disconnect();
+                      if (typeof updateLocalizedLinks === 'function') updateLocalizedLinks();
+                  }
+              });
+              
+              if (root.children.length > 0) {
+                  window.history.replaceState(null, '', currentPath);
+                  if (typeof updateLocalizedLinks === 'function') updateLocalizedLinks();
+              } else {
+                  observer.observe(root, { childList: true });
+                  // Fallback timeout just in case
+                  setTimeout(() => {
+                      window.history.replaceState(null, '', currentPath);
+                      observer.disconnect();
+                      if (typeof updateLocalizedLinks === 'function') updateLocalizedLinks();
+                  }, 2000);
+              }
+          }
+
+          if (originalPath !== currentPath) {
+              window.history.replaceState(null, '', originalPath);
+              document.addEventListener('DOMContentLoaded', restoreUrlAfterReactMount);
+          } else if (['fr', 'en', 'ar'].includes(possibleLang)) {
+              // Even if no translation found, remove the language prefix for React
+              const rawPath = '/' + pathParts.slice(1).join('/');
+              window.history.replaceState(null, '', rawPath);
+              document.addEventListener('DOMContentLoaded', restoreUrlAfterReactMount);
+          }
+
+          // 2. Intercept outgoing navigations.
+          // React Router (v7, v5Compat) re-reads window.location.pathname synchronously
+          // right after calling pushState/replaceState. If we swap the URL for the
+          // localized form in that same call, the router renders path "/fr/besoins"
+          // (no route) and the SPA shows a blank page. So we always commit the
+          // CANONICAL route URL first, then cosmetic-rewrite the address bar to the
+          // localized form in a deferred step (after React Router has swallowed it).
+          const originalPushState = window.history.pushState;
+          const originalReplaceState = window.history.replaceState;
+
+          let rewriteToken = 0;
+          function scheduleLocalizedRewrite(state, canonicalUrl) {
+              const localizedUrl = getTranslatedPath(canonicalUrl);
+              if (!localizedUrl || typeof localizedUrl !== 'string') return;
+              if (localizedUrl === canonicalUrl) return;
+              const token = ++rewriteToken;
+              const len = history.length;
+              setTimeout(function () {
+                  // Superseded by a newer navigation or interrupted by a back/forward.
+                  if (token !== rewriteToken) return;
+                  if (history.length !== len) return;
+                  if (window.location.pathname === localizedUrl) return;
+                  originalReplaceState.call(window.history, state, '', localizedUrl);
+                  if (typeof updateLocalizedLinks === 'function') updateLocalizedLinks();
+              }, 0);
+          }
+
+          window.history.pushState = function(state, title, url) {
+              if (!url) return originalPushState.call(this, state, title, url);
+              originalPushState.call(this, state, title, url);
+              scheduleLocalizedRewrite(state, url);
+          };
+
+          window.history.replaceState = function(state, title, url) {
+              if (!url) return originalReplaceState.call(this, state, title, url);
+              // Header-internal restores of the localized URL (initial load) pass through unchanged.
+              if (url === currentPath || (typeof url === 'string' && url.startsWith('/' + currentLang))) {
+                 return originalReplaceState.call(this, state, title, url);
+              }
+              originalReplaceState.call(this, state, title, url);
+              scheduleLocalizedRewrite(state, url);
+          };
+
+          // 3. Intercept back/forward buttons
+          window.addEventListener('popstate', function(e) {
+              const currentBrowserUrl = window.location.pathname;
+              const original = getOriginalPath(currentBrowserUrl);
+              
+              if (original !== currentBrowserUrl || ['fr', 'en', 'ar'].includes(currentBrowserUrl.split('/')[1])) {
+                  const rawPath = original !== currentBrowserUrl ? original : ('/' + currentBrowserUrl.split('/').slice(2).join('/'));
+                  const len = history.length;
+                  // Invalidate any pending cosmetic rewrites from a previous push/replace.
+                  rewriteToken++;
+                  originalReplaceState.call(window.history, e.state, '', rawPath);
+                  
+                  setTimeout(() => {
+                      if (history.length !== len) return; // user navigated again meanwhile
+                      originalReplaceState.call(window.history, e.state, '', currentBrowserUrl);
+                      if (typeof updateLocalizedLinks === 'function') updateLocalizedLinks();
+                  }, 50);
+              }
+          }, true);
+
+          // 4. Intercept internal link clicks to ensure locale is preserved
+          document.addEventListener('click', function(e) {
+              if (!currentLang || currentLang === 'fr') return;
+              const a = e.target.closest('a[href]');
+              if (!a) return;
+              const href = a.getAttribute('href');
+              if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http') || a.target === '_blank') return;
+              if (href.startsWith('/admin') || href.startsWith('/api') || href.startsWith('/storage') || href.startsWith('/build') || href.startsWith('/assets')) return;
+              if (href.startsWith('/' + currentLang)) return;
+              const localized = getTranslatedPath(href);
+              if (localized && localized !== href) {
+                  a.setAttribute('href', localized);
+              }
+          }, true);
+      })();
+
+      // Function to rewrite internal links so they preserve current non-French locale
+      function updateLocalizedLinks() {
+          if (!currentLang || currentLang === 'fr') return;
+          const links = document.querySelectorAll('a[href]');
+          links.forEach(a => {
+              const href = a.getAttribute('href');
+              if (!href) return;
+              if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http') || href.startsWith('javascript:')) return;
+              if (href.startsWith('/admin') || href.startsWith('/api') || href.startsWith('/storage') || href.startsWith('/build') || href.startsWith('/assets')) return;
+              if (href.startsWith('/fr') || href.startsWith('/en') || href.startsWith('/ar')) return;
+              
+              const localized = getTranslatedPath(href);
+              if (localized && localized !== href) {
+                  a.setAttribute('href', localized);
+              }
+          });
+      }
+
+      // Text replacement overlay for the compiled React bundle
+      function applyTranslations() {
+        if (typeof updateLocalizedLinks === 'function') {
+          updateLocalizedLinks();
+        }
+        if (Object.keys(CMS_CONTENT).length === 0) return;
+
+        // Exact-match lookup for whole text nodes / placeholders.
+        const exact = new Map(Object.entries(CMS_CONTENT));
+        // Longest-first order so specific strings win over their substrings
+        // (e.g. "EMAIL *" is replaced before "EMAIL").
+        const sorted = Object.entries(CMS_CONTENT).sort((a, b) => b[0].length - a[0].length);
+        const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        const translateText = (value) => {
+          if (!value) return value;
+          const lead = value.match(/^\s*/)[0];
+          const trail = value.match(/\s*$/)[0];
+          const core = value.slice(lead.length, value.length - trail.length);
+          if (exact.has(core)) {
+            return lead + exact.get(core) + trail;
+          }
+          let out = value;
+          for (const [defaultText, customText] of sorted) {
+            if (out.includes(defaultText)) {
+              out = out.replace(new RegExp(esc(defaultText), 'g'), customText);
+            }
+          }
+          return out;
+        };
+
+        const walk = (node) => {
+          if (node.nodeType === 3 && node.nodeValue && node.nodeValue.trim()) {
+            const translated = translateText(node.nodeValue);
+            if (translated !== node.nodeValue) node.nodeValue = translated;
+          }
+          if (node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE') {
+            if (node.placeholder || (node.getAttribute && node.getAttribute('placeholder'))) {
+              const currentPlaceholder = (node.getAttribute && node.getAttribute('placeholder')) || node.placeholder;
+              const translated = translateText(currentPlaceholder);
+              if (translated !== currentPlaceholder) {
+                node.placeholder = translated;
+                if (node.setAttribute) node.setAttribute('placeholder', translated);
+              }
+            }
+            if (node.title || (node.getAttribute && node.getAttribute('title'))) {
+              const currentTitle = (node.getAttribute && node.getAttribute('title')) || node.title;
+              const translated = translateText(currentTitle);
+              if (translated !== currentTitle) {
+                node.title = translated;
+                if (node.setAttribute) node.setAttribute('title', translated);
+              }
+            }
+            for (const child of node.childNodes) walk(child);
+          }
+        };
+        walk(document.body);
+      }
+
+      // Apply translations after React renders
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(applyTranslations, 100));
+      } else {
+        setTimeout(applyTranslations, 100);
+      }
+
+      // Re-apply when React updates the DOM (structure or in-place text).
+      let observerTimer = null;
+      const observer = new MutationObserver(() => {
+        clearTimeout(observerTimer);
+        observerTimer = setTimeout(applyTranslations, 30);
+      });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+
+      // Belt-and-suspenders: React may replace text in place right after a
+      // mutation pass; re-scan a few times during startup to catch stragglers.
+      let scans = 0;
+      const scanTimer = setInterval(() => {
+        applyTranslations();
+        if (++scans >= 8) clearInterval(scanTimer);
+      }, 350);
+    </script>
+    <div id="root"></div>
+    <script>
+    // Inject admin-managed documents into the "DOCUMENTATION PRATIQUE" section
+    // (the compiled SPA cannot be rebuilt from this repository, so like the
+    // translation overlay below we patch the rendered DOM at runtime).
+    // Cards reuse the compiled bundle's exact markup so they inherit its styling.
+    (function () {
+        var docs = window.CMS_DOCUMENTS || [];
+        if (!docs.length) return;
+
+        var labels = {
+            fr: { download: 'TÉLÉCHARGER', docx: 'DOCX' },
+            en: { download: 'DOWNLOAD', docx: 'DOCX' },
+            ar: { download: 'تحميل', docx: 'DOCX' }
+        };
+        var t = labels[window.__MPT_LOCALE__ || 'fr'] || labels.fr;
+
+        function esc(s) {
+            return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
+        var sizeUnits = window.__MPT_LOCALE__ === 'en'
+            ? { b: 'B', kb: 'KB', mb: 'MB', dot: '.' }
+            : { b: 'o', kb: 'Ko', mb: 'Mo', dot: ',' };
+
+        function humanSize(bytes) {
+            bytes = Number(bytes) || 0;
+            if (bytes >= 1048576) return (bytes / 1048576).toFixed(1).replace('.', sizeUnits.dot) + ' ' + sizeUnits.mb;
+            if (bytes >= 1024) return Math.round(bytes / 1024) + ' ' + sizeUnits.kb;
+            if (bytes > 0) return bytes + ' ' + sizeUnits.b;
+            return '';
+        }
+
+        function formatOf(d) {
+            if (d.pdf_url) return 'PDF';
+            var m = String(d.url || d.file_name || '').match(/\.(\w+)$/);
+            return m ? m[1].toUpperCase() : 'FILE';
+        }
+
+        function icons(name) {
+            if (name === 'file') {
+                return '<svg class="absolute block inset-0 size-full" fill="none" height="20" preserveAspectRatio="none" viewBox="0 0 20 20" width="20"><g id="file-code"><path d="M11.6665 1.666H5.0005C4.55852 1.666 4.13464 1.84161 3.82211 2.1542C3.50958 2.46678 3.334 2.89074 3.334 3.3328V16.6672C3.334 17.1093 3.50958 17.5332 3.82211 17.8458C4.13464 18.1584 4.55852 18.334 5.0005 18.334H14.9995C15.4415 18.334 15.8654 18.1584 16.1779 17.8458C16.4904 17.5332 16.666 17.1093 16.666 16.6672V6.6664M11.6665 1.666C11.9303 1.66558 12.1915 1.71734 12.4352 1.81832C12.6789 1.9193 12.9002 2.0675 13.0864 2.25438L16.0761 5.24462C16.2634 5.43089 16.412 5.65244 16.5133 5.89647C16.6145 6.14051 16.6664 6.40219 16.666 6.6664M11.6665 1.666V5.833C11.6665 6.05403 11.7543 6.26601 11.9106 6.4223C12.0668 6.57859 12.2788 6.6664 12.4997 6.6664L16.666 6.6664M8.3335 10.4167L6.667 12.5002L8.3335 14.5837M11.6665 10.4167L13.333 12.5002L11.6665 14.5837" id="Vector" stroke="#4B5563" stroke-linecap="round" stroke-width="2"></path></g></svg>';
+            }
+            return '<svg class="absolute block inset-0 size-full" fill="none" height="14" preserveAspectRatio="none" viewBox="0 0 14 14" width="14"><g clip-path="url(#mptc0_0_8)" id="download"><path d="M7 8.75V1.75M9.91667 5.83333L7 8.75L4.08333 5.83333M12.25 8.75V11.0833C12.25 11.3928 12.1271 11.6895 11.9083 11.9083C11.6895 12.1271 11.3928 12.25 11.0833 12.25H2.91667C2.60725 12.25 2.3105 12.1271 2.09171 11.9083C1.87292 11.6895 1.75 11.3928 1.75 11.0833V8.75" id="Vector" stroke="#111827" stroke-linecap="round" stroke-width="2"></path></g><defs><clipPath id="mptc0_0_8"><rect fill="white" height="14" width="14"></rect></clipPath></defs></svg>';
+        }
+
+        function card(d) {
+            var meta = formatOf(d);
+            var size = humanSize(d.pdf_size != null ? d.pdf_size : d.size);
+            if (size) meta += ' (' + size + ')';
+
+            var links = '';
+            if (d.pdf_url) {
+                links += '<a class="content-stretch flex gap-[6px] items-center relative shrink-0 no-underline" download="" href="' + esc(d.pdf_url) + '">' +
+                    '<div class="relative shrink-0 size-[14px]" data-name="download">' + icons('download') + '</div>' +
+                    '<p class="[word-break:break-word] font-[\'Inter:Bold\',sans-serif] font-bold leading-[normal] not-italic relative shrink-0 text-[#1667a8] text-[12px] whitespace-nowrap">' + esc(t.download) + '</p></a>';
+            }
+            links += '<a class="content-stretch flex gap-[6px] items-center relative shrink-0 no-underline" download="" href="' + esc(d.url) + '">' +
+                '<p class="[word-break:break-word] font-[\'Inter:Medium\',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[#1667a8] text-[12px] whitespace-nowrap">' + esc(t.docx) + '</p></a>';
+
+            return '<div class="bg-[#f9fafb] content-stretch flex flex-[1_0_42px] gap-[16px] items-start min-w-px p-[20px] relative rounded-[6px]" data-name="Frame">' +
+                '<div aria-hidden="true" class="absolute border border-[#e5e7eb] border-solid inset-0 pointer-events-none rounded-[6px]"></div>' +
+                '<div class="bg-[#f3f4f6] content-stretch flex items-center justify-center relative rounded-[4px] shrink-0 size-[40px]" data-name="Frame">' +
+                    '<div aria-hidden="true" class="absolute border border-[#d1d5db] border-solid inset-0 pointer-events-none rounded-[4px]"></div>' +
+                    '<div class="relative shrink-0 size-[20px]" data-name="file-code">' + icons('file') + '</div>' +
+                '</div>' +
+                '<div class="content-stretch flex flex-[1_0_0] flex-col gap-[6px] items-start min-w-px relative" data-name="Frame">' +
+                    '<p class="[word-break:break-word] font-[\'Inter:Bold\',sans-serif] font-bold leading-[normal] min-w-full not-italic overflow-hidden relative shrink-0 text-[#111827] text-[16px] text-ellipsis w-[min-content] whitespace-nowrap">' + esc(d.title) + '</p>' +
+                    '<p class="[word-break:break-word] font-[\'Inter:Medium\',sans-serif] font-medium leading-[normal] not-italic relative shrink-0 text-[#9ca3af] text-[11px] whitespace-nowrap">' + esc(meta) + '</p>' +
+                    (d.description ? '<p class="[word-break:break-word] font-[\'Inter:Regular\',sans-serif] font-normal leading-[1.4] min-w-full not-italic overflow-hidden relative shrink-0 text-[#4b5563] text-[14px] text-ellipsis w-[min-content]">' + esc(d.description) + '</p>' : '') +
+                    '<div class="content-stretch flex gap-[10px] items-center pt-[8px] relative shrink-0" data-name="Frame">' + links + '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        function tryInject() {
+            var section = document.querySelector('[data-name="documentation"]');
+            if (!section) return;
+            if (section.querySelector('.mpt-documents')) return;
+
+            var row = document.createElement('div');
+            row.className = 'mpt-documents';
+            row.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:24px;width:100%;align-items:stretch;';
+            row.innerHTML = docs.map(card).join('');
+
+            section.appendChild(row);
+        }
+
+        var obs = new MutationObserver(function () { tryInject(); });
+        obs.observe(document.body, { childList: true, subtree: true });
+        tryInject();
+        var timer = setInterval(function () { tryInject(); if (sectionInjected()) clearInterval(timer); }, 400);
+        function sectionInjected() {
+            return !!document.querySelector('.mpt-documents');
+        }
+        setTimeout(function () { clearInterval(timer); obs.disconnect(); }, 20000);
+    })();
+
+    // Interactive Newsletter Form for the Regulations page & responsive banners
+    (function () {
+        var translations = {
+            fr: {
+                placeholder: "Votre adresse e-mail professionnel...",
+                button: "JE M'INSCRIS",
+                buttonLoading: "INSCRIPTION...",
+                consent: "En cochant cette case, j'accepte de recevoir des communications techniques et réglementaires sur la sécurité alimentaire. Vous pouvez vous désinscrire à tout moment.",
+                success: "Merci ! Vous êtes inscrit(e).",
+                reset: "Nouvelle inscription",
+                errEmail: "Veuillez saisir une adresse e-mail valide.",
+                errConsent: "Veuillez cocher la case pour accepter les communications.",
+                errGeneral: "Erreur, veuillez réessayer."
+            },
+            en: {
+                placeholder: "Your professional e-mail address...",
+                button: "I SUBSCRIBE",
+                buttonLoading: "SUBSCRIBING...",
+                consent: "By checking this box, I accept receiving technical and regulatory communications on food safety. You can unsubscribe at any time.",
+                success: "Thank you! You have subscribed.",
+                reset: "New subscription",
+                errEmail: "Please enter a valid email address.",
+                errConsent: "Please check the box to accept communications.",
+                errGeneral: "Error, please try again."
+            },
+            ar: {
+                placeholder: "بريدكم الإلكتروني المهني...",
+                button: "أسجل اشتراكي",
+                buttonLoading: "جاري التسجيل...",
+                consent: "بالتأشير على هذه الخانة، أوافق على تلقي المراسلات التقنية والتنظيمية المتعلقة بسلامة الأغذية. يمكنكم إلغاء الاشتراك في أي وقت.",
+                success: "شكراً لكم! لقد تم تسجيل اشتراككم.",
+                reset: "اشتراك جديد",
+                errEmail: "يرجى إدخال بريد إلكتروني صالح.",
+                errConsent: "يرجى التأشير على الخانة للموافقة على المراسلات.",
+                errGeneral: "حدث خطأ، يرجى إعادة المحاولة."
+            }
+        };
+
+        function getXsrfToken() {
+            var m = document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]*)/);
+            return m ? decodeURIComponent(m[1]) : '';
+        }
+
+        function createFormElement(lang) {
+            var t = translations[lang] || translations.fr;
+            var form = document.createElement('form');
+            form.className = 'mpt-newsletter-form';
+            form.setAttribute('novalidate', 'true');
+            form.setAttribute('data-lang', lang);
+
+            form.innerHTML =
+                '<div class="mpt-newsletter-row">' +
+                    '<input type="email" class="mpt-newsletter-input" placeholder="' + t.placeholder + '" required aria-label="' + t.placeholder + '">' +
+                    '<button type="submit" class="mpt-newsletter-btn">' + t.button + '</button>' +
+                '</div>' +
+                '<label class="mpt-newsletter-consent">' +
+                    '<input type="checkbox" class="mpt-newsletter-checkbox" required>' +
+                    '<span class="mpt-newsletter-consent-text">' + t.consent + '</span>' +
+                '</label>' +
+                '<div class="mpt-newsletter-feedback" role="alert"></div>';
+
+            var input = form.querySelector('.mpt-newsletter-input');
+            var submitBtn = form.querySelector('.mpt-newsletter-btn');
+            var checkbox = form.querySelector('.mpt-newsletter-checkbox');
+            var feedback = form.querySelector('.mpt-newsletter-feedback');
+            var row = form.querySelector('.mpt-newsletter-row');
+            var consentLabel = form.querySelector('.mpt-newsletter-consent');
+
+            function showError(msg) {
+                feedback.className = 'mpt-newsletter-feedback is-error';
+                feedback.innerHTML = '<span>' + msg + '</span>';
+                feedback.style.display = 'block';
+            }
+
+            function showSuccess() {
+                row.style.display = 'none';
+                consentLabel.style.display = 'none';
+                feedback.className = 'mpt-newsletter-feedback is-success';
+                feedback.innerHTML =
+                    '<p style="font-weight:700;font-size:15px;margin:0;">' + t.success + '</p>' +
+                    '<button type="button" class="mpt-newsletter-reset-btn">' + t.reset + '</button>';
+                feedback.style.display = 'flex';
+
+                var resetBtn = feedback.querySelector('.mpt-newsletter-reset-btn');
+                resetBtn.addEventListener('click', function () {
+                    input.value = '';
+                    checkbox.checked = false;
+                    row.style.display = 'flex';
+                    consentLabel.style.display = 'flex';
+                    feedback.style.display = 'none';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = t.button;
+                });
+            }
+
+            input.addEventListener('input', function () {
+                if (feedback.classList.contains('is-error')) {
+                    feedback.style.display = 'none';
+                }
+            });
+            checkbox.addEventListener('change', function () {
+                if (feedback.classList.contains('is-error')) {
+                    feedback.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                var emailVal = input.value.trim();
+
+                if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+                    showError(t.errEmail);
+                    input.focus();
+                    return;
+                }
+
+                if (!checkbox.checked) {
+                    showError(t.errConsent);
+                    checkbox.focus();
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = t.buttonLoading;
+                feedback.style.display = 'none';
+
+                try {
+                    var res = await fetch('/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-XSRF-TOKEN': getXsrfToken()
+                        },
+                        credentials: 'same-origin',
+                        body: JSON.stringify({
+                            name: 'Abonné Newsletter',
+                            company: '-',
+                            email: emailVal,
+                            phone: '-',
+                            subject: 'Newsletter — Inscription à la lettre d\'information',
+                            message: 'Inscription newsletter depuis la page réglementation. Email: ' + emailVal,
+                            consent: true
+                        })
+                    });
+
+                    if (res.ok) {
+                        showSuccess();
+                    } else {
+                        var data = await res.json().catch(function () { return {}; });
+                        var errText = (data.errors && data.errors.email && data.errors.email[0]) || t.errGeneral;
+                        showError(errText);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = t.button;
+                    }
+                } catch (err) {
+                    showError(t.errGeneral);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = t.button;
+                }
+            });
+
+            return form;
+        }
+
+        function upgradeNewsletterForms() {
+            var lang = window.__MPT_LOCALE__ || document.documentElement.lang || 'fr';
+
+            // Desktop variant
+            var desktopSections = document.querySelectorAll('[data-name="newsletter-fond-toile-verre"]');
+            desktopSections.forEach(function (sec) {
+                var existing = sec.querySelector('.mpt-newsletter-form');
+                if (existing) {
+                    if (existing.getAttribute('data-lang') !== lang) {
+                        existing.parentNode.replaceChild(createFormElement(lang), existing);
+                    }
+                    return;
+                }
+                var container = sec.querySelector('[class*="max-w-[1440px]"]') || sec.children[2] || sec;
+                var fake = sec.querySelector('[class*="w-[500px]"]') || (container.children && container.children[1]);
+                if (fake && fake.parentNode) {
+                    fake.parentNode.replaceChild(createFormElement(lang), fake);
+                } else if (container) {
+                    container.appendChild(createFormElement(lang));
+                }
+            });
+
+            // Tablet / Mobile variant
+            var responsiveSections = document.querySelectorAll('[data-name="newsletter"]');
+            responsiveSections.forEach(function (sec) {
+                var existing = sec.querySelector('.mpt-newsletter-form');
+                if (existing) {
+                    if (existing.getAttribute('data-lang') !== lang) {
+                        existing.parentNode.replaceChild(createFormElement(lang), existing);
+                    }
+                    return;
+                }
+                var fakeConsent = sec.querySelector('[class*="flex gap-[8px]"]');
+                var fakeRow = sec.querySelector('[class*="w-[358px]"], [class*="flex gap-[12px]"]');
+                if (fakeConsent) fakeConsent.style.display = 'none';
+                if (fakeRow && fakeRow.parentNode) {
+                    fakeRow.parentNode.replaceChild(createFormElement(lang), fakeRow);
+                } else {
+                    sec.appendChild(createFormElement(lang));
+                }
+            });
+        }
+
+        var obs = new MutationObserver(function () {
+            upgradeNewsletterForms();
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+
+        window.addEventListener('popstate', function () {
+            setTimeout(upgradeNewsletterForms, 50);
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', upgradeNewsletterForms);
+        } else {
+            upgradeNewsletterForms();
+        }
+    })();
+    </script>
+  </body>
+</html>

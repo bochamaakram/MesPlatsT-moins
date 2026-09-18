@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-section-soft-gray text-gray-900 antialiased selection:bg-brand-blue selection:text-white;
+    }
+    /* Refined focus visible — premium ring */
+    *:focus-visible {
+        @apply outline-none ring-2 ring-brand-blue/30 ring-offset-2 ring-offset-section-soft-gray;
+    }
+    /* Smooth scrolling & text rendering */
+    html {
+        scroll-behavior: smooth;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    /* Arabic typography — Cairo needs looser line height and no uppercase */
+    html[lang='ar'] body {
+        font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+        line-height: 1.8;
+        letter-spacing: 0;
+    }
+    html[lang='ar'] h1,
+    html[lang='ar'] h2,
+    html[lang='ar'] h3 {
+        line-height: 1.35;
+        letter-spacing: 0 !important;
+    }
+    /* Remove harsh uppercase tracking for Arabic everywhere */
+    html[lang='ar'] .uppercase,
+    html[dir='rtl'] .uppercase {
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        font-family: 'Cairo', sans-serif;
+    }
+    html[dir='rtl'] {
+        letter-spacing: 0;
+    }
+}
+
+@layer components {
+    .container-site {
+        @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .section-separator {
+        @apply mx-auto my-8 h-1 w-16 rounded-full bg-gradient-to-r from-brand-blue to-brand-green;
+    }
+
+    .card-surface {
+        @apply relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-0.5;
+    }
+
+    .card-surface::before {
+        content: '';
+        @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent;
+    }
+
+    /* Premium admin card with top accent */
+    .admin-card {
+        @apply relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white shadow-card transition-all duration-300 hover:shadow-card-hover;
+    }
+
+    .admin-card-gradient {
+        @apply absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-brand-blue to-brand-green;
+    }
+
+    /* Inputs — softer, more tactile */
+    .input-admin {
+        @apply w-full rounded-xl border-slate-200 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-slate-400 shadow-soft transition-all duration-200 focus:border-brand-blue focus:bg-white focus:shadow-medium focus:ring-2 focus:ring-brand-blue/10;
+    }
+
+    html[dir='rtl'] .input-admin {
+        text-align: right;
+        direction: rtl;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-soft transition-all duration-200 hover:bg-slate-800 hover:shadow-medium hover:-translate-y-px active:translate-y-0 disabled:opacity-60 disabled:hover:translate-y-0;
+    }
+
+    /* Arabic should not uppercase primary buttons */
+    html[lang='ar'] .btn-primary,
+    html[lang='ar'] .btn-secondary,
+    html[dir='rtl'] .btn-primary,
+    html[dir='rtl'] .btn-secondary {
+        @apply tracking-normal normal-case;
+        font-family: 'Cairo', sans-serif;
+        letter-spacing: 0;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 shadow-soft transition-all duration-200 hover:bg-slate-50 hover:border-slate-300 hover:shadow-medium hover:-translate-y-px active:translate-y-0;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-800;
+    }
+
+    /* Subtle page enter */
+    .animate-enter {
+        @apply animate-fade-in;
+    }
+
+    /* Glass effect utility */
+    .glass {
+        @apply bg-white/75 backdrop-blur-xl saturate-150;
+    }
+
+    /* Shimmer placeholder */
+    .shimmer {
+        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+        background-size: 200% 100%;
+        @apply animate-shimmer;
+    }
+}
+
+/* RTL helpers — logical spacing already handles most, but ensure Arabic tables/forms feel native */
+html[dir='rtl'] .card-surface,
+html[dir='rtl'] .admin-card {
+    text-align: right;
+}
+html[dir='rtl'] table {
+    direction: rtl;
+}
+html[dir='rtl'] input,
+html[dir='rtl'] textarea,
+html[dir='rtl'] select {
+    text-align: right;
+}
+
+/* Custom scrollbar — minimal premium */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+}
